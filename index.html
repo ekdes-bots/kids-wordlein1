@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Daily 3-in-1 Wordle</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="game-container">
+    <header>
+      <h1>Daily 3-in-1 Wordle</h1>
+      <p id="puzzle-tracker" class="subtitle">Puzzle 1 of 3</p>
+    </header>
+
+    <main>
+      <div id="game-status" class="status-banner"></div>
+
+      <!-- Stats Banner -->
+      <div id="stats-banner" class="stats-banner">
+        <div class="stat-item">Streak <span id="stat-streak">🔥 0</span></div>
+        <div class="stat-item">Completed <span id="stat-completed">🏆 0</span></div>
+      </div>
+
+      <!-- Wordle Grid (6 rows x 5 letters) -->
+      <div id="wordle-grid" class="wordle-grid"></div>
+
+      <!-- On-Screen Keyboard -->
+      <div id="keyboard" class="keyboard"></div>
+
+      <!-- Past History Section -->
+      <div class="history-section">
+        <h3>Past Puzzle History</h3>
+        <div id="history-list" class="history-list"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

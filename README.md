@@ -3,7 +3,7 @@
 A fun, fast-paced daily word game featuring **three Wordle puzzles in one set**, unlocking one at a time.
 
 ## Features
-- **3-in-1 Daily Challenge:** Solve three consecutive 5-letter wordles every day.
+- **3-in-1 Daily Challenge:** Solve three consecutive 5 wordle-in-1s every day.
 - **75 Days of Puzzles:** Packed with a rotating library of daily word sets that reset at 7:00 AM ET.
 - **Streak & History Tracker:** Keeps track of your daily completion streaks and past puzzle history.
 - **iPhone & Mobile Ready:** Custom touch-friendly on-screen keyboard and responsive layout.

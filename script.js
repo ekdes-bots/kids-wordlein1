@@ -1,160 +1,46 @@
 // Launch anchor: Resets daily at 7:00 AM ET starting today (Nov 5, 2026)
 const START_DATE_UTC = Date.UTC(2026, 10, 5, 12, 0, 0); 
 
-// 75 Days of Wordle-in-1 Daily Sets (3 puzzles per day)
-// Each item has: { target: "FINAL_WORD", clueWord: "CLUE_WORD" }
 const DAILY_PUZZLES = [
-  // Day 1
   [
     { target: "SMILE", clueWord: "TRAIN" },
-    { target: "PLANT", "clueWord": "HOUSE" },
-    { target: "WATER", "clueWord": "OCEAN" }
+    { target: "PLANT", clueWord: "HOUSE" },
+    { target: "WATER", clueWord: "OCEAN" }
   ],
-  // Day 2
   [
     { target: "CHAIR", clueWord: "BEACH" },
-    { target: "DRIVE", "clueWord": "WHEEL" },
-    { target: "APPLE", "clueWord": "FRUIT" }
+    { target: "DRIVE", clueWord: "WHEEL" },
+    { target: "APPLE", clueWord: "FRUIT" }
   ],
-  // Day 3
   [
     { target: "HOUSE", clueWord: "STONE" },
-    { target: "TIGER", "clueWord": "SNAKE" },
-    { target: "PIANO", "clueWord": "MUSIC" }
-  ],
-  // Day 4
-  [
-    { target: "GUITAR", "clueWord": "AUDIO" }, // keep 5 letters: "RADIO"
-    { target: "MUSIC", "clueWord": "SOUND" },
-    { target: "SPACE", "clueWord": "EARTH" }
-  ],
-  // Day 5
-  [
-    { target: "LUNAR", "clueWord": "SPACE" },
-    { target: "CLOUD", "clueWord": "STORM" },
-    { target: "RAINY", "clueWord": "WATER" }
-  ],
-  // Days 6 - 75 (Compact dataset maintaining 3 Wordle-in-1 puzzles per day)
-  [
-    { target: "BREAD", clueWord: "FLOUR" }, { target: "SUGAR", clueWord: "SWEET" }, { target: "BRICK", "clueWord": "HOUSE" }
+    { target: "TIGER", clueWord: "SNAKE" },
+    { target: "PIANO", clueWord: "MUSIC" }
   ],
   [
-    { target: "PAPER", clueWord: "PENCIL" }, { target: "ERASER", clueWord: "CLEAN" }, { target: "LIGHT", "clueWord": "BULB" }
+    { target: "RADIO", clueWord: "AUDIO" },
+    { target: "MUSIC", clueWord: "SOUND" },
+    { target: "SPACE", clueWord: "EARTH" }
   ],
   [
-    { target: "LASER", clueWord: "BEAM" }, { target: "SHIRT", "clueWord": "PANTS" }, { target: "SHOES", "clueWord": "BOOTS" }
+    { target: "LUNAR", clueWord: "SPACE" },
+    { target: "CLOUD", clueWord: "STORM" },
+    { target: "RAINY", clueWord: "WATER" }
   ],
   [
-    { target: "OCEAN", clueWord: "WATER" }, { target: "CORAL", "clueWord": "REEFS" }, { target: "WHALE", "clueWord": "OCEAN" }
+    { target: "BREAD", clueWord: "FLOUR" }, { target: "SUGAR", clueWord: "SWEET" }, { target: "BRICK", clueWord: "HOUSE" }
+  ],
+  [
+    { target: "PAPER", clueWord: "PENCIL" }, { target: "ERASER", clueWord: "CLEAN" }, { target: "LIGHT", clueWord: "BULB" }
+  ],
+  [
+    { target: "LASER", clueWord: "BEAM" }, { target: "SHIRT", clueWord: "PANTS" }, { target: "SHOES", clueWord: "BOOTS" }
+  ],
+  [
+    { target: "OCEAN", clueWord: "WATER" }, { target: "CORAL", clueWord: "REEFS" }, { target: "WHALE", clueWord: "OCEAN" }
   ],
   [
     { target: "TOWER", clueWord: "CASTLE" }, { target: "BRIDGE", "clueWord": "RIVER" }, { target: "MONEY", "clueWord": "COIN" }
-  ],
-  [
-    { target: "WALLET", clueWord: "CASH" }, { target: "CLOCK", "clueWord": "WATCH" }, { target: "TIMER", "clueWord": "CLOCK" }
-  ],
-  [
-    { target: "BERRY", clueWord: "FRUIT" }, { target: "MELON", "clueWord": "FRUIT" }, { target: "HAPPY", "clueWord": "SMILE" }
-  ],
-  [
-    { target: "LAUGH", clueWord: "SMILE" }, { target: "GREEN", "clueWord": "PLANT" }, { target: "NORTH", "clueWord": "SOUTH" }
-  ],
-  [
-    { target: "BOARD", "clueWord": "CHESS" }, { target: "AUDIO", "clueWord": "SOUND" }, { target: "VOICE", "clueWord": "AUDIO" }
-  ],
-  [
-    { target: "FROST", clueWord: "WINTER" }, { target: "CHILL", "clueWord": "FROST" }, { target: "SHARK", "clueWord": "OCEAN" }
-  ],
-  [
-    { target: "CRAB", "clueWord": "OCEAN" }, { target: "TRACK", "clueWord": "TRAIN" }, { target: "WHEEL", "clueWord": "CAR" }
-  ],
-  [
-    { target: "CHESS", clueWord: "BOARD" }, { target: "CHECK", "clueWord": "CHESS" }, { target: "SHINE", "clueWord": "GLOW" }
-  ],
-  [
-    { target: "SPARK", "clueWord": "LIGHT" }, { target: "SWEET", "clueWord": "CANDY" }, { target: "HONEY", "clueWord": "SWEET" }
-  ],
-  [
-    { target: "FLOOR", clueWord: "ROOM" }, { target: "CHEF", "clueWord": "COOK" }, { target: "PLATE", "clueWord": "FOOD" }
-  ],
-  [
-    { target: "SPOON", clueWord: "FORK" }, { target: "TENT", "clueWord": "CAMP" }, { target: "CABIN", "clueWord": "WOODS" }
-  ],
-  // ... (Puzzles 21 through 75 follow the same clean structure)
-  [
-    { target: "BRAIN", clueWord: "THINK" }, { target: "SOLVE", "clueWord": "PUZZLE" }, { target: "NIGHT", "clueWord": "SLEEP" }
-  ],
-  [
-    { target: "DREAM", clueWord: "SLEEP" }, { target: "CLEAN", "clueWord": "WASH" }, { target: "SCRUB", "clueWord": "CLEAN" }
-  ],
-  [
-    { target: "PAINT", clueWord: "BRUSH" }, { target: "COLOR", "clueWord": "PAINT" }, { target: "GAMES", "clueWord": "PLAY" }
-  ],
-  [
-    { target: "SCORE", "clueWord": "GAMES" }, { target: "PILOT", "clueWord": "PLANE" }, { target: "FLIGHT", "clueWord": "PILOT" }
-  ],
-  [
-    { target: "GHOST", "clueWord": "MAGIC" }, { target: "SPELL", "clueWord": "WITCH" }, { target: "QUEEN", "clueWord": "KING" }
-  ],
-  [
-    { target: "KNIGHT", "clueWord": "CHESS" }, { target: "RIVER", "clueWord": "WATER" }, { target: "CREEK", "clueWord": "RIVER" }
-  ],
-  [
-    { target: "FLOOD", "clueWord": "WATER" }, { target: "MOUSE", "clueWord": "SCREEN" }, { target: "SCREEN", "clueWord": "GLASS" }
-  ],
-  [
-    { target: "STARE", "clueWord": "BLINK" }, { target: "VISION", "clueWord": "EYES" }, { target: "COMB", "clueWord": "HAIR" }
-  ],
-  [
-    { target: "MIRROR", "clueWord": "GLASS" }, { target: "PLAZA", "clueWord": "STORE" }, { target: "STORE", "clueWord": "SHOP" }
-  ],
-  [
-    { target: "MARKET", "clueWord": "STORE" }, { target: "STEAK", "clueWord": "MEAT" }, { target: "GRILL", "clueWord": "COOK" }
-  ],
-  [
-    { target: "JUICE", "clueWord": "DRINK" }, { target: "WATER", "clueWord": "OCEAN" }, { target: "WHALE", "clueWord": "OCEAN" }
-  ],
-  [
-    { target: "CORAL", "clueWord": "REEF" }, { target: "TRACK", "clueWord": "FIELD" }, { target: "SPORT", "clueWord": "GAME" }
-  ],
-  [
-    { target: "CROWN", "clueWord": "ROYAL" }, { target: "THRONE", "clueWord": "KING" }, { target: "BLADE", "clueWord": "SWORD" }
-  ],
-  [
-    { target: "KNIFE", "clueWord": "BLADE" }, { target: "FRAME", "clueWord": "PHOTO" }, { target: "IMAGE", "clueWord": "PHOTO" }
-  ],
-  [
-    { target: "SHADE", "clueWord": "SHADOW" }, { target: "DARK", "clueWord": "NIGHT" }, { target: "TIGER", "clueWord": "LION" }
-  ],
-  [
-    { target: "LION", "clueWord": "BEAR" }, { target: "ZEBRA", "clueWord": "HORSE" }, { target: "CUBS", "clueWord": "BEARS" }
-  ],
-  [
-    { target: "WAVES", "clueWord": "OCEAN" }, { target: "BEACH", "clueWord": "SAND" }, { target: "CLOUD", "clueWord": "STORM" }
-  ],
-  [
-    { target: "WINDS", "clueWord": "STORM" }, { target: "VALLEY", "clueWord": "HILLS" }, { target: "PEACE", "clueWord": "QUIET" }
-  ],
-  [
-    { target: "CALM", "clueWord": "PEACE" }, { target: "QUICK", "clueWord": "SPEED" }, { target: "HASTE", "clueWord": "QUICK" }
-  ],
-  [
-    { target: "SHARP", "clueWord": "POINT" }, { target: "POINT", "clueWord": "EDGE" }, { target: "MAGIC", "clueWord": "WITCH" }
-  ],
-  [
-    { target: "WITCH", "clueWord": "BROOM" }, { target: "SUPER", "clueWord": "HERO" }, { target: "POWER", "clueWord": "SUPER" }
-  ],
-  [
-    { target: "WINGS", "clueWord": "BIRD" }, { target: "RADIO", "clueWord": "AUDIO" }, { target: "SIGNAL", "clueWord": "RADIO" }
-  ],
-  [
-    { target: "STAGE", "clueWord": "DRAMA" }, { target: "ACTOR", "clueWord": "STAGE" }, { target: "STAMP", "clueWord": "MAIL" }
-  ],
-  [
-    { target: "POST", "clueWord": "MAIL" }, { target: "SOUND", "clueWord": "AUDIO" }, { target: "BONUS", "clueWord": "PRIZE" }
-  ],
-  [
-    { target: "AWARD", "clueWord": "PRIZE" }, { target: "CHAMP", "clueWord": "WINNER" }, { target: "TROPHY", "clueWord": "CHAMP" }
   ]
 ].map(set => set.map(item => ({
   target: item.target.padEnd(5, 'X').slice(0, 5).toUpperCase(),
@@ -225,17 +111,15 @@ function updateTracker() {
   if (isGameOver && currentGameIndex >= 3) {
     trackerEl.textContent = "🎉 Day Completed!";
   } else {
-    trackerEl.textContent = `Wordle in 1 (${currentGameIndex + 1} of 3)`;
+    trackerEl.textContent = `Wordle in 1 (${currentGameIndex + 1} of 3) • Try ${guesses.length + 1}/6`;
   }
 }
 
-// Evaluate letter colors comparing a guess against a target word
 function getEvaluatedColors(guess, target) {
   const colors = Array(5).fill("absent");
   const targetLetters = target.split("");
   const guessLetters = guess.split("");
 
-  // Check correct positions
   for (let i = 0; i < 5; i++) {
     if (guessLetters[i] === targetLetters[i]) {
       colors[i] = "correct";
@@ -244,7 +128,6 @@ function getEvaluatedColors(guess, target) {
     }
   }
 
-  // Check present positions
   for (let i = 0; i < 5; i++) {
     if (guessLetters[i] && targetLetters.includes(guessLetters[i])) {
       colors[i] = "present";
@@ -257,7 +140,12 @@ function getEvaluatedColors(guess, target) {
 function renderGrid() {
   gridEl.innerHTML = "";
   
-  // Row 0: Preloaded Clue Word Evaluated against Target
+  // 1. Clue Row
+  const clueLabel = document.createElement("div");
+  clueLabel.className = "row-label";
+  clueLabel.textContent = "Clue Row:";
+  gridEl.appendChild(clueLabel);
+
   const clueRowEl = document.createElement("div");
   clueRowEl.className = "wordle-row";
   const clueColors = getEvaluatedColors(currentPuzzle.clueWord, currentPuzzle.target);
@@ -270,39 +158,35 @@ function renderGrid() {
   }
   gridEl.appendChild(clueRowEl);
 
-  // Rows 1 to 6: Player Guesses
-  for (let r = 0; r < 6; r++) {
-    const rowEl = document.createElement("div");
-    rowEl.className = "wordle-row";
-    
-    const guessWord = guesses[r] || (r === guesses.length ? currentGuess : "");
-    
-    for (let c = 0; c < 5; c++) {
-      const tileEl = document.createElement("div");
-      tileEl.className = "wordle-tile";
-      
-      const letter = guessWord[c] || "";
-      if (letter) {
-        tileEl.textContent = letter;
-        tileEl.classList.add("filled");
-      }
+  // 2. Active Guess Row (Only show current attempt row)
+  const guessLabel = document.createElement("div");
+  guessLabel.className = "row-label";
+  guessLabel.style.marginTop = "8px";
+  guessLabel.textContent = `Your Guess (${guesses.length + 1}/6):`;
+  gridEl.appendChild(guessLabel);
 
-      if (r < guesses.length) {
-        const evalColors = getEvaluatedColors(guesses[r], currentPuzzle.target);
-        tileEl.classList.add(evalColors[c]);
-      }
-      
-      rowEl.appendChild(tileEl);
+  const activeRowEl = document.createElement("div");
+  activeRowEl.className = "wordle-row";
+  
+  for (let c = 0; c < 5; c++) {
+    const tileEl = document.createElement("div");
+    tileEl.className = "wordle-tile";
+    
+    const letter = currentGuess[c] || "";
+    if (letter) {
+      tileEl.textContent = letter;
+      tileEl.classList.add("filled");
     }
-    gridEl.appendChild(rowEl);
+    activeRowEl.appendChild(tileEl);
   }
+  gridEl.appendChild(activeRowEl);
 }
 
 function renderKeyboard() {
   keyboardEl.innerHTML = "";
   const keyStates = {};
 
-  // Include clue word in keyboard states
+  // Factor in clue word colors
   const clueColors = getEvaluatedColors(currentPuzzle.clueWord, currentPuzzle.target);
   for (let i = 0; i < 5; i++) {
     const letter = currentPuzzle.clueWord[i];
@@ -312,6 +196,7 @@ function renderKeyboard() {
     else if (status === "absent" && !keyStates[letter]) keyStates[letter] = "absent";
   }
 
+  // Factor in previous guesses for this puzzle
   guesses.forEach(guess => {
     const evalColors = getEvaluatedColors(guess, currentPuzzle.target);
     for (let i = 0; i < 5; i++) {
@@ -391,6 +276,7 @@ function handleKeyPress(key) {
     }
     
     saveProgress();
+    updateTracker();
     renderGrid();
     renderKeyboard();
   } else {
@@ -454,7 +340,7 @@ function renderStatsAndHistory() {
   historyListEl.innerHTML = "";
   const entries = Object.entries(stats.history);
   if (entries.length === 0) {
-    historyListEl.innerHTML = `<div style="color: #888; font-size: 0.8rem; padding: 4px;">No completed days yet. Solve today's 3-in-1 set to record your score!</div>`;
+    historyListEl.innerHTML = `<div style="color: #888; font-size: 0.75rem; padding: 2px;">No completed days yet. Solve today's 3-in-1 set to record your score!</div>`;
   } else {
     entries.forEach(([key, record]) => {
       const item = document.createElement("div");
